@@ -1,6 +1,6 @@
 package service;
 
-import module.AccountEntry;
+import model.AccountEntry;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
