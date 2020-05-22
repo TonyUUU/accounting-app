@@ -9,6 +9,8 @@ class ListEntryComponent extends Component {
             message: null
         }
         this.refreshEntries = this.refreshEntries.bind(this);
+        this.updateEntryClicked = this.updateEntryClicked.bind(this);
+        this.deleteEntryClicked = this.deleteEntryClicked.bind(this);
     }
 
     componentDidMount() {
@@ -25,10 +27,29 @@ class ListEntryComponent extends Component {
             )
     }
 
+    updateEntryClicked(id) {
+        console.log('update' + id);
+        this.props.history.push(`/entries/${id}`);
+    }
+
+    deleteEntryClicked(id) {
+        EntryService.deleteEntry(id)
+            .then(
+                responce => {
+                    console.log(responce);
+                    this.setState({message: `Delete of entry ${id} Successful`})
+                    this.refreshEntries();
+                }
+            )
+    }
+
     render() {
         return (
             <div className="Container">
                 <h3>All Records</h3>
+                {this.state.message && 
+                    <div className="alert alert-success">{this.state.message}</div>
+                }
                 <div className="Container">
                     <table className="table">
                         <thead>
@@ -37,6 +58,8 @@ class ListEntryComponent extends Component {
                                 <th>Date</th>
                                 <th>Description</th>
                                 <th>Amount</th>
+                                <th>Update</th>
+                                <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,6 +71,22 @@ class ListEntryComponent extends Component {
                                             <td>{entry.date}</td>
                                             <td>{entry.entryName}</td>
                                             <td>{entry.amount}</td>
+                                            <td>
+                                                <button className="btn btn-success"
+                                                    onClick={
+                                                        () => this.updateEntryClicked(entry.id)
+                                                }>
+                                                    Update
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <button className="btn btn-warning"
+                                                    onClick={
+                                                        () => this.deleteEntryClicked(entry.id)
+                                                }>
+                                                    Delete
+                                                </button>
+                                            </td>
                                         </tr>
                                 )
                             }

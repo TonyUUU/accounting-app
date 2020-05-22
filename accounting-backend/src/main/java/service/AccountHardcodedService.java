@@ -30,4 +30,26 @@ public class AccountHardcodedService {
     public List<AccountEntry> findAll() {
         return entries;
     }
+
+    public AccountEntry findById(long id) {
+        for (AccountEntry entry : entries) {
+            if (entry.getId() == id) {
+                return entry;
+            }
+        }
+
+        return null;
+    }
+
+    public AccountEntry deleteById(long id) {
+        AccountEntry entry = findById(id);
+        if (entry == null) {
+            return null;
+        }
+        if (entries.remove(entry)) {
+            return entry;
+        }
+
+        return null;
+    }
 }

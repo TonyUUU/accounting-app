@@ -2,9 +2,8 @@ package api;
 
 import model.AccountEntry;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import service.AccountHardcodedService;
 
 import java.util.List;
@@ -18,5 +17,20 @@ public class AccountResource {
     @GetMapping("/entries")
     public List<AccountEntry> getAllEntries() {
         return entryService.findAll();
+    }
+
+    @GetMapping("/entries/{id}")
+    public AccountEntry getEntry(@PathVariable long id) {
+        return entryService.findById(id);
+    }
+
+    @DeleteMapping("/entries/{id}")
+    public ResponseEntity<Void> deleteEntry(@PathVariable long id) {
+        AccountEntry entry = entryService.deleteById(id);
+        if (entry != null) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.notFound().build();
     }
 }
