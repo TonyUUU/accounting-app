@@ -9,6 +9,7 @@ class ListEntryComponent extends Component {
             message: null
         }
         this.refreshEntries = this.refreshEntries.bind(this);
+        this.addEntryClicked = this.addEntryClicked.bind(this);
         this.updateEntryClicked = this.updateEntryClicked.bind(this);
         this.deleteEntryClicked = this.deleteEntryClicked.bind(this);
     }
@@ -25,6 +26,10 @@ class ListEntryComponent extends Component {
                     this.setState({entries: responce.data});
                 }
             )
+    }
+
+    addEntryClicked() {
+        this.props.history.push('/entries/-1');
     }
 
     updateEntryClicked(id) {
@@ -92,6 +97,15 @@ class ListEntryComponent extends Component {
                             }
                         </tbody>
                     </table>
+
+                    <div className="row">
+                        <button className="btn btn-success" 
+                            onClick={
+                                () => this.addEntryClicked()
+                            }>
+                                Add
+                            </button>
+                    </div>
                 </div>
             </div>
         );

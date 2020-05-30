@@ -41,6 +41,18 @@ public class AccountHardcodedService {
         return null;
     }
 
+    public AccountEntry save(AccountEntry entry) {
+        if (entry.getId() == -1) {
+            entry.setId(++idCounter);
+            entries.add(entry);
+        } else {
+            deleteById(entry.getId());
+            entries.add(entry);
+        }
+
+        return entry;
+    }
+
     public AccountEntry deleteById(long id) {
         AccountEntry entry = findById(id);
         if (entry == null) {
