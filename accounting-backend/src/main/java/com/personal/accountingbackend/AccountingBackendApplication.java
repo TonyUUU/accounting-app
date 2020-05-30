@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"api", "service"})
+@ComponentScan(basePackages = { "api", "service" })
 public class AccountingBackendApplication {
 
 	public static void main(String[] args) {
